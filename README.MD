@@ -19,3 +19,12 @@ Travel Tribe is a collaborative web application designed to help families plan a
    git clone https://github.com/yourusername/travel_tribe.git
    cd travel_tribe
    ```
+
+## API Integrations
+
+This project will integrate with the following APIs:
+
+- Skyscanner API (Flights)
+- Airbnb API (Accommodations)
+- TripAdvisor API (Reviews & Activities)
+- Google Places API (Local Attractions)
