@@ -1,0 +1,344 @@
+{% extends 'base.html' %}
+<!-- prettier ignore -->
+{% block title %}Home - Travel Tribe{% endblock %}
+<!-- prettier ignore -->
+
+{% block content %}
+<div class="jumbotron text-center mt-5">
+  <h1 class="display-4">Plan Your Next Family Trip with Travel Tribe</h1>
+  <p class="lead">
+    Choose how you'd like to search for your next trip: by recommended
+    activities or manually searching for flights and Airbnbs.
+  </p>
+  <hr class="my-4" />
+
+  <!-- Universal Location Selection -->
+  <div class="text-center mb-4">
+    <div class="form-check form-check-inline">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="use_location"
+        name="use_location"
+      />
+      <label class="form-check-label ms-2" for="use_location">
+        Use My Current Location
+      </label>
+    </div>
+  </div>
+
+  <!-- Tabs for Search Types -->
+  <ul class="nav nav-tabs" id="searchTypeTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link active"
+        id="recommended-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#recommended"
+        type="button"
+        role="tab"
+        aria-controls="recommended"
+        aria-selected="true"
+      >
+        Recommended Search
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button
+        class="nav-link"
+        id="manual-tab"
+        data-bs-toggle="tab"
+        data-bs-target="#manual"
+        type="button"
+        role="tab"
+        aria-controls="manual"
+        aria-selected="false"
+      >
+        Manual Search
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-4">
+    <!-- Recommended Search Tab -->
+    <div
+      class="tab-pane fade show active"
+      id="recommended"
+      role="tabpanel"
+      aria-labelledby="recommended-tab"
+    >
+      <!-- Activity Selection Form -->
+      <form method="GET" action="{% url 'search' %}">
+        <div class="row text-center">
+          <!-- Predefined Activities -->
+          <div class="col-md-4">
+            <input
+              type="checkbox"
+              class="btn-check"
+              name="activities"
+              value="beach"
+              id="beach"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-primary btn-lg w-100" for="beach">
+              <i class="bi bi-sun"></i> Beach
+            </label>
+          </div>
+          <div class="col-md-4">
+            <input
+              type="checkbox"
+              class="btn-check"
+              name="activities"
+              value="shopping"
+              id="shopping"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-primary btn-lg w-100" for="shopping">
+              <i class="bi bi-cart"></i> Shopping
+            </label>
+          </div>
+          <div class="col-md-4">
+            <input
+              type="checkbox"
+              class="btn-check"
+              name="activities"
+              value="fishing"
+              id="fishing"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-primary btn-lg w-100" for="fishing">
+              <i class="bi bi-umbrella"></i> Fishing
+            </label>
+          </div>
+        </div>
+
+        <div class="row text-center mt-3">
+          <div class="col-md-4">
+            <input
+              type="checkbox"
+              class="btn-check"
+              name="activities"
+              value="hiking"
+              id="hiking"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-primary btn-lg w-100" for="hiking">
+              <i class="bi bi-tree"></i> Hiking
+            </label>
+          </div>
+          <div class="col-md-4">
+            <input
+              type="checkbox"
+              class="btn-check"
+              name="activities"
+              value="family_friendly"
+              id="family_friendly"
+              autocomplete="off"
+            />
+            <label
+              class="btn btn-outline-primary btn-lg w-100"
+              for="family_friendly"
+            >
+              <i class="bi bi-heart"></i> Family-Friendly
+            </label>
+          </div>
+          <div class="col-md-4">
+            <input
+              type="checkbox"
+              class="btn-check"
+              name="activities"
+              value="skiing"
+              id="skiing"
+              autocomplete="off"
+            />
+            <label class="btn btn-outline-primary btn-lg w-100" for="skiing">
+              <i class="bi bi-snow"></i> Skiing
+            </label>
+          </div>
+        </div>
+
+        <!-- Custom Activity Input Section -->
+        <div class="row text-center mt-4">
+          <div class="col-md-12">
+            <label for="custom_activities" class="form-label">
+              Add Custom Activities
+            </label>
+            <div id="custom-activities">
+              <input
+                type="text"
+                class="form-control form-control-lg mb-3"
+                id="custom_activities"
+                name="custom_activities"
+                placeholder="Enter custom activity"
+              />
+            </div>
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              onclick="addCustomActivity()"
+            >
+              Add Another Activity
+            </button>
+          </div>
+        </div>
+
+        <!-- Dates and Guests (Common Fields for Both Searches) -->
+        <div class="row text-center mt-4">
+          <div class="col-md-6">
+            <label for="checkin" class="form-label">Check-In Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="checkin"
+              name="checkin"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="checkout" class="form-label">Check-Out Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="checkout"
+              name="checkout"
+              required
+            />
+          </div>
+        </div>
+        <div class="row text-center mt-4">
+          <div class="col-md-2 offset-md-5">
+            <label for="guests" class="form-label">Number of Guests</label>
+            <input
+              type="number"
+              class="form-control"
+              id="guests"
+              name="guests"
+              value="1"
+              min="1"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="text-center mt-5">
+          <button type="submit" class="btn btn-success btn-lg">
+            Find Destinations
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Manual Search Tab -->
+    <div
+      class="tab-pane fade"
+      id="manual"
+      role="tabpanel"
+      aria-labelledby="manual-tab"
+    >
+      <form method="GET" action="{% url 'search' %}">
+        <div class="row text-center">
+          <div class="col-md-6">
+            <label for="departure" class="form-label">Departure City</label>
+            <input
+              type="text"
+              class="form-control"
+              id="departure"
+              name="departure"
+              placeholder="Enter departure city"
+            />
+          </div>
+
+          <div class="col-md-6">
+            <label for="destination" class="form-label">Destination City</label>
+            <input
+              type="text"
+              class="form-control"
+              id="destination"
+              name="destination"
+              placeholder="Enter destination city"
+            />
+          </div>
+        </div>
+
+        <!-- Dates and Guests (Common Fields for Both Searches) -->
+        <div class="row text-center mt-4">
+          <div class="col-md-6">
+            <label for="checkin" class="form-label">Check-In Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="checkin"
+              name="checkin"
+              required
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="checkout" class="form-label">Check-Out Date</label>
+            <input
+              type="date"
+              class="form-control"
+              id="checkout"
+              name="checkout"
+              required
+            />
+          </div>
+        </div>
+        <div class="row text-center mt-4">
+          <div class="col-md-2 offset-md-5">
+            <label for="guests" class="form-label">Number of Guests</label>
+            <input
+              type="number"
+              class="form-control"
+              id="guests"
+              name="guests"
+              value="1"
+              min="1"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="text-center mt-5">
+          <button type="submit" class="btn btn-primary btn-lg">
+            Search Flights and Airbnbs
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Search Results Sections (Flights, Airbnbs, Activities) -->
+{% if flights or airbnbs or activities %}
+<div class="container mt-5">
+  <h2>Search Results</h2>
+
+  {% if flights %}
+  <h3>Flights</h3>
+  <ul class="list-group">
+    {% for flight in flights %}
+    <li class="list-group-item">
+      Flight from {{ flight.departure }} to {{ flight.destination }} - {{
+      flight.price }}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %} {% if airbnbs %}
+  <h3>Airbnbs</h3>
+  <ul class="list-group">
+    {% for airbnb in airbnbs %}
+    <li class="list-group-item">
+      Airbnb in {{ airbnb.location }} - {{ airbnb.price }} per night
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %} {% if activities %}
+  <h3>Recommended Activities</h3>
+  <ul class="list-group">
+    {% for activity in activities %}
+    <li class="list-group-item">{{ activity }}</li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</div>
+{% endif %} {% endblock %}
