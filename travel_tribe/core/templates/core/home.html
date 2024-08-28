@@ -320,8 +320,9 @@
   <ul class="list-group">
     {% for flight in flights %}
     <li class="list-group-item">
-      Flight from {{ flight.departure }} to {{ flight.destination }} - {{
-      flight.price }}
+      <!-- prettier ignore -->
+      Flight from {{ flight.origin }} to {{ flight.destination }} - {{flight.price }} {{ flight.price.currency }}
+      <!-- prettier ignore -->
     </li>
     {% endfor %}
   </ul>
@@ -332,7 +333,7 @@
   <ul class="list-group">
     {% for airbnb in airbnbs %}
     <li class="list-group-item">
-      Airbnb in {{ airbnb.location }} - {{ airbnb.price }} per night
+      Airbnb in {{ airbnb.city }} - {{ airbnb.price }} per night
     </li>
     {% endfor %}
   </ul>
