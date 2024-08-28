@@ -323,7 +323,9 @@
     </li>
     {% endfor %}
   </ul>
-  {% endif %} {% if airbnbs %}
+  {% endif %}
+
+  {% if airbnbs %}
   <h3>Airbnbs</h3>
   <ul class="list-group">
     {% for airbnb in airbnbs %}
@@ -332,7 +334,9 @@
     </li>
     {% endfor %}
   </ul>
-  {% endif %} {% if activities %}
+  {% endif %}
+
+  {% if activities %}
   <h3>Recommended Activities</h3>
   <ul class="list-group">
     {% for activity in activities %}
@@ -342,3 +346,4 @@
   {% endif %}
 </div>
 {% endif %} {% endblock %}
+

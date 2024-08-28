@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geolocation Test</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            console.log("Testing geolocation...");
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    console.log("Latitude: " + position.coords.latitude);
+                    console.log("Longitude: " + position.coords.longitude);
+                }, function (error) {
+                    console.error("Geolocation error: ", error.message);
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Geolocation Test</h1>
+</body>
+</html>
